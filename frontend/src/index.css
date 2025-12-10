@@ -1,0 +1,175 @@
+@import "tailwindcss";
+
+/* -------------------------------------------------------
+   CSS VARIABLES (LIGHT + DARK)
+------------------------------------------------------- */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 270 15% 20%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 270 15% 20%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 270 15% 20%;
+
+  --primary: 270 50% 65%;
+  --primary-light: 270 45% 85%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 45 70% 88%;
+  --secondary-foreground: 270 15% 20%;
+
+  --muted: 270 10% 96%;
+  --muted-foreground: 270 10% 45%;
+
+  --accent: 270 60% 45%;
+  --accent-light: 270 55% 55%;
+  --accent-foreground: 0 0% 100%;
+
+  --success: 150 50% 50%;
+  --success-foreground: 0 0% 100%;
+
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 270 15% 90%;
+  --input: 270 15% 90%;
+  --ring: 270 50% 65%;
+
+  --radius: 0.75rem;
+
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+.dark {
+  --background: 270 20% 10%;
+  --foreground: 270 10% 95%;
+
+  --card: 270 18% 12%;
+  --card-foreground: 270 10% 95%;
+
+  --popover: 270 18% 12%;
+  --popover-foreground: 270 10% 95%;
+
+  --primary: 270 50% 70%;
+  --primary-light: 270 45% 30%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 45 50% 25%;
+  --secondary-foreground: 270 10% 95%;
+
+  --muted: 270 15% 18%;
+  --muted-foreground: 270 10% 60%;
+
+  --accent: 270 60% 55%;
+  --accent-light: 270 55% 45%;
+  --accent-foreground: 0 0% 100%;
+
+  --success: 150 50% 45%;
+  --success-foreground: 0 0% 100%;
+
+  --destructive: 0 70% 50%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 270 15% 20%;
+  --input: 270 15% 20%;
+  --ring: 270 50% 70%;
+
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 224.3 76.3% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+/* -------------------------------------------------------
+   BASE STYLES
+------------------------------------------------------- */
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* -------------------------------------------------------
+   CUSTOM COMPONENT CLASSES
+------------------------------------------------------- */
+
+/* Gradients */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary-light)),
+    hsl(var(--primary))
+  );
+}
+
+.gradient-warm {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--secondary)),
+    hsl(45 80% 75%)
+  );
+}
+
+.gradient-accent {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--accent)),
+    hsl(270 65% 35%)
+  );
+}
+
+/* Smooth transitions */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card Shadows */
+.shadow-card {
+  box-shadow:
+    0 2px 8px -2px hsl(var(--primary) / 0.1),
+    0 4px 16px -4px hsl(var(--primary) / 0.08);
+}
+
+.shadow-card-hover {
+  box-shadow:
+    0 4px 16px -2px hsl(var(--primary) / 0.15),
+    0 8px 24px -4px hsl(var(--primary) / 0.12);
+}
