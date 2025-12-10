@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+import logo from "../../../public/manovaidya-logo.png";
 
 const Navigation = ({ isLoggedIn = false }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,10 +20,7 @@ const Navigation = ({ isLoggedIn = false }) => {
             { label: "Courses", path: "/courses" },
             { label: "Free Resources", path: "/resources" },
             { label: "Community", path: "/community" },
-            { label: "My Journey", path: "/my-journey" },
-            { label: "Profile", path: "/profile" },
             { label: "About Doctors", path: "/about" },
-
         ];
 
     const isActive = (path) => location.pathname === path;
@@ -30,19 +28,23 @@ const Navigation = ({ isLoggedIn = false }) => {
     return (
         <nav className="sticky top-0 z-50 bg-white/60 backdrop-blur border-b">
             <div className="w-[85%] mx-auto px-4">
+                
+                {/* === 3 COLUMN FLEX GRID === */}
                 <div className="flex h-16 items-center justify-between">
 
-                    {/* Logo */}
-                    <Link to="/" className="flex items-center space-x-2">
-                        {/* <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500" /> */}
-                        <div className="flex flex-col leading-none">
-                            <span className="font-semibold text-lg">Manovaidya</span>
-                            <span className="text-xs text-gray-500">Parent Academy</span>
-                        </div>
-                    </Link>
+                    {/* LEFT — LOGO */}
+                    <div className="flex items-center flex-shrink-0">
+                        <Link to="/" className="flex items-center">
+                            <img
+                                src={logo}
+                                alt="Manovaidya Logo"
+                                className="w-36 h-auto object-contain"
+                            />
+                        </Link>
+                    </div>
 
-                    {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center space-x-1">
+                    {/* CENTER — NAV LINKS (Always centered) */}
+                    <div className="hidden md:flex items-center space-x-1 flex-1 justify-center">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.path}
@@ -58,7 +60,7 @@ const Navigation = ({ isLoggedIn = false }) => {
                         ))}
                     </div>
 
-                    {/* Auth Desktop */}
+                    {/* RIGHT — AUTH BUTTONS */}
                     <div className="hidden md:flex items-center space-x-3">
                         {isLoggedIn ? (
                             <Link to="/profile">
@@ -82,16 +84,17 @@ const Navigation = ({ isLoggedIn = false }) => {
                         )}
                     </div>
 
-                    {/* Mobile Menu Button */}
+                    {/* MOBILE — TOGGLE */}
                     <button
                         className="md:hidden p-2"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     >
                         {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
                     </button>
+
                 </div>
 
-                {/* Mobile Dropdown */}
+                {/* === MOBILE MENU === */}
                 {mobileMenuOpen && (
                     <div className="md:hidden py-4 space-y-2 animate-fade-in">
                         {navLinks.map((link) => (

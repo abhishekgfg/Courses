@@ -8,6 +8,12 @@ import {
     FaPlay,
 } from "react-icons/fa";
 import { freeResources } from "../lib/dummyData";
+const getResourceLink = (resource) => {
+    if (resource.type === "Behaviour") {
+        return "https://manovaidya.in/patientsform.php";
+    }
+    return resource.url;
+};
 
 const Resources = () => {
     const [typeFilter, setTypeFilter] = useState("All");
@@ -59,6 +65,7 @@ const Resources = () => {
         <div className="min-h-screen flex flex-col">
 
             <main className="flex-1">
+
                 {/* HEADER */}
                 <section className="bg-gray-100 py-16">
                     <div className="container mx-auto px-4">
@@ -86,7 +93,6 @@ const Resources = () => {
                             {filteredResources.length !== 1 ? "s" : ""} available
                         </p>
 
-                        {/* Custom Select */}
                         <div className="relative">
                             <select
                                 value={typeFilter}
@@ -107,6 +113,7 @@ const Resources = () => {
                 <section className="py-12">
                     <div className="w-[90%] mx-auto px-4">
                         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                             {filteredResources.map((resource, index) => (
                                 <div
                                     key={resource.id}
@@ -114,6 +121,7 @@ const Resources = () => {
                                     style={{ animationDelay: `${index * 0.05}s` }}
                                 >
                                     <div className="space-y-4">
+
                                         {/* ICON + TYPE */}
                                         <div className="flex items-start justify-between">
                                             <div className="w-14 h-14 rounded-lg bg-blue-50 flex items-center justify-center">
@@ -125,22 +133,32 @@ const Resources = () => {
                                             </span>
                                         </div>
 
-                                        {/* TITLE + DESCRIPTION */}
+                                        {/* TITLE */}
                                         <div>
                                             <h3 className="text-xl font-semibold mb-2">
                                                 {resource.title}
                                             </h3>
-                                            <p className="text-sm text-gray-600">{resource.description}</p>
+                                            <p className="text-sm text-gray-600">
+                                                {resource.description}
+                                            </p>
                                         </div>
 
-                                        {/* CTA BUTTON */}
-                                        <button className="w-full border border-gray-300 rounded-lg py-3 flex items-center justify-center gap-2 hover:bg-gray-100 transition">
-                                            {getButtonIcon(resource.type)}
-                                            {getButtonText(resource.type)}
-                                        </button>
+                                        {/* CTA BUTTON → dynamic link */}
+                                      <a
+    href={getResourceLink(resource)}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="w-full border border-gray-300 rounded-lg py-3 flex items-center justify-center gap-2 hover:bg-gray-100 transition"
+>
+    {getButtonIcon(resource.type)}
+    {getButtonText(resource.type)}
+</a>
+
+
                                     </div>
                                 </div>
                             ))}
+
                         </div>
                     </div>
                 </section>
@@ -166,6 +184,7 @@ const Resources = () => {
                         </div>
                     </div>
                 </section>
+
             </main>
 
         </div>

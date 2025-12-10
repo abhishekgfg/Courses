@@ -262,30 +262,43 @@ export const freeResources = [
         title: "Parent Clarity Quick Start",
         type: "Mini-course",
         description: "A 20-minute introduction to understanding your child's needs and your parenting journey.",
-        thumbnail: "/placeholder.svg"
+        thumbnail: "/placeholder.svg",
+        url: "https://example.com/minicourse"
     },
     {
         id: "res2",
         title: "Daily Behaviour Tracker",
-        type: "PDF",
+        type: "Form",
         description: "Track patterns in your child's behaviour to identify triggers and successes.",
-        thumbnail: "/placeholder.svg"
+        thumbnail: "/placeholder.svg",
+        url: "https://manovaidya.in/patientsform.php"
     },
     {
         id: "res3",
         title: "Sensory Profile Checklist",
         type: "PDF",
         description: "Identify your child's sensory preferences and sensitivities.",
-        thumbnail: "/placeholder.svg"
+        thumbnail: "/placeholder.svg",
+        url: "https://example.com/sensory"
     },
     {
         id: "res4",
         title: "Understanding Your Child's Brain",
         type: "Webinar",
         description: "Recorded expert session on neurodevelopmental differences and what they mean.",
-        thumbnail: "/placeholder.svg"
+        thumbnail: "/placeholder.svg",
+        url: "https://example.com/webinar"
+    },
+    {
+        id: "res5",
+        title: "Behaviour Assessment Form",
+        type: "Behaviour",
+        description: "Fill this quick behaviour assessment to understand your child's patterns.",
+        thumbnail: "/placeholder.svg",
+        url: "https://manovaidya.in/patientsform.php"  // special link
     }
 ];
+
 
 export const experts = [
     {

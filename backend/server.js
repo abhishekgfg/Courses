@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import courseRoutes from "./routes/courseRoutes.js";
 import courseDetailsRoutes from "./routes/courseDetailsRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.use("/api/admin/courses", courseRoutes);
 app.use("/api/admin/courses", courseDetailsRoutes);
+app.use("/api/auth", authRoutes);
 
 app.get("/api/health", (req, res) => res.json({ status: "OK", mongodb: mongoose.connection.readyState === 1 ? "Connected" : "Disconnected" }));
 

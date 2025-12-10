@@ -1,46 +1,49 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
+
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
-import LessonPlayer from "./pages/LessonPlayer";
+import CoursePlayer from "./pages/CoursePlayer";
 import Resources from "./pages/Resources";
 import Community from "./pages/Community";
 import MyJourney from "./pages/MyJourney";
-import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
+import Login from "./auth/Login";
+import Signup from "./auth/Signup";
+import ForgotPassword from "./auth/ForgotPassword";
+
 import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
-import CoursePlayer from "./pages/CoursePlayer";
-import CourseDetailsForm from "../../admin/src/pages/CourseDetailsForm ";
-
-
 
 const App = () => (
+  <AuthProvider>
+    <BrowserRouter>
+      <Navigation />
 
-  <BrowserRouter>
-    <Navigation />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/courses" element={<Courses />} />
-      <Route path="/courses/:slug" element={<CourseDetail />} />
-      {/* <Route path="/courses/:slug/lesson/:lessonId" element={<LessonPlayer />} /> */}
-      <Route path="/resources" element={<Resources />} />
-      <Route path="/community" element={<Community />} />
-      <Route path="/my-journey" element={<MyJourney />} />
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/about" element={<About />} />
-      <Route path="*" element={<NotFound />} />
-      <Route path="/courses/:slug/lesson/:lessonId?" element={<CoursePlayer />} />
-      <Route path="/courses-details" element={<CourseDetailsForm />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-    </Routes>
-    <Footer />
-  </BrowserRouter>
+        {/* Login/Signup pages should redirect if already logged-in */}
+        <Route path="/auth" element={<PublicRoute><Login /></PublicRoute>} />
+        <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+        <Route path="/Forget-Password" element={<ForgotPassword />} />
 
+        {/* Protected pages */}
+        <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+        <Route path="/courses/:slug" element={<ProtectedRoute><CourseDetail /></ProtectedRoute>} />
+        <Route path="/courses/:slug/lesson/:lessonId?" element={<ProtectedRoute><CoursePlayer /></ProtectedRoute>} />
+        <Route path="/resources" element={<ProtectedRoute><Resources /></ProtectedRoute>} />
+        <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+        <Route path="/my-journey" element={<ProtectedRoute><MyJourney /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      </Routes>
 
+      <Footer />
+    </BrowserRouter>
+  </AuthProvider>
 );
 
 export default App;
