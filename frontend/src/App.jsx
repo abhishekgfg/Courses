@@ -18,10 +18,13 @@ import ForgotPassword from "./auth/ForgotPassword";
 import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
 import ResetPassword from "./auth/ResetPassword";
+import ScrollToTop from "./components/ScrollToTop";
+
 
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
+    <ScrollToTop />
       <Navigation />
 
       <Routes>

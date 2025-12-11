@@ -41,11 +41,22 @@ export const login = async (req, res) => {
     if (!match) return res.status(400).json({ message: "Incorrect password" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.json({ token });
+
+    return res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone
+      }
+    });
   } catch {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 export const forgotPassword = async (req, res) => {
   try {
@@ -131,6 +142,17 @@ export const resetPassword = async (req, res) => {
     await user.save();
 
     res.json({ message: "Password reset successful!" });
+  } catch {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("name email phone");
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json(user);
   } catch {
     res.status(500).json({ message: "Server error" });
   }

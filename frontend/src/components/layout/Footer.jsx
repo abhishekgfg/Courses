@@ -8,13 +8,16 @@ const Footer = () => {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* Brand */}
                     <div className="space-y-4">
-                        <div className="flex items-center space-x-2">
-                            <div className="w-8 h-8 rounded-lg bg-gradient-primary" />
-                            <div className="flex flex-col">
-                                <span className="font-semibold text-lg leading-none">Manovaidya</span>
-                                <span className="text-xs text-muted-foreground">Parent Academy</span>
-                            </div>
-                        </div>
+                     <div className="flex items-center space-x-2 justify-start">
+  <div className="w-8 h-8 rounded-lg bg-gradient-primary" />
+
+  <img 
+    src="/manovaidya-logo.png"
+    alt="Manovaidya Logo"
+    className="w-50 h-10 object-contain ml-[-30px]"
+  />
+</div>
+
                         <p className="text-sm text-muted-foreground">
                             Structured support for parents of neurodivergent and emotionally struggling children.
                         </p>

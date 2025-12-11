@@ -1,20 +1,19 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
-import {
-    FaUser,
-    FaEnvelope,
-    FaPhone,
-    FaPlus,
-    FaEdit,
-    FaTrash,
-    FaComments
-} from "react-icons/fa";
+import { useState, useEffect } from "react";
+import axios from "../utils/axiosInstance";
+import { FaUser, FaEnvelope, FaPhone, FaPlus, FaEdit, FaTrash, FaComments } from "react-icons/fa";
 
 const Profile = () => {
     const [whatsappEnabled, setWhatsappEnabled] = useState(true);
     const [emailEnabled, setEmailEnabled] = useState(true);
 
+    // 👉 User State
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        phone: ""
+    });
+
+    // Static Child Profiles (as in your UI)
     const childProfiles = [
         {
             id: "1",
@@ -25,10 +24,29 @@ const Profile = () => {
         },
     ];
 
+    // 👉 Fetch Profile
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        axios
+            .get("http://localhost:5000/api/auth/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                console.error("Profile fetch error:", err);
+            });
+    }, []);
+
     return (
         <div className="min-h-screen flex flex-col">
-
             <main className="flex-1">
+
                 {/* Header */}
                 <section className="bg-gray-100 py-12">
                     <div className="container mx-auto px-4">
@@ -58,29 +76,35 @@ const Profile = () => {
                                 <div className="grid md:grid-cols-2 gap-4">
                                     <div className="space-y-1">
                                         <label className="text-sm font-medium">Full Name</label>
-                                        <input
-                                            className="w-full px-3 py-2 border rounded-lg"
-                                            defaultValue="Priya Sharma"
-                                        />
+                                       <input
+    className="w-full px-3 py-2 border rounded-lg bg-gray-100 cursor-not-allowed"
+    value={user.name}
+    readOnly
+/>
+
                                     </div>
 
                                     <div className="space-y-1">
                                         <label className="text-sm font-medium">Email</label>
                                         <input
-                                            type="email"
-                                            className="w-full px-3 py-2 border rounded-lg"
-                                            defaultValue="priya@example.com"
-                                        />
+    type="email"
+    className="w-full px-3 py-2 border rounded-lg bg-gray-100 cursor-not-allowed"
+    value={user.email}
+    readOnly
+/>
+
                                     </div>
                                 </div>
 
                                 <div className="space-y-1">
                                     <label className="text-sm font-medium">Phone Number</label>
-                                    <input
-                                        type="tel"
-                                        className="w-full px-3 py-2 border rounded-lg"
-                                        defaultValue="+91 98765 43210"
-                                    />
+                                   <input
+    type="tel"
+    className="w-full px-3 py-2 border rounded-lg bg-gray-100 cursor-not-allowed"
+    value={user.phone}
+    readOnly
+/>
+
                                 </div>
 
                                 <button className="px-4 py-2 bg-blue-600 text-white rounded-lg">
@@ -217,6 +241,7 @@ const Profile = () => {
 
                     </div>
                 </div>
+
             </main>
         </div>
     );

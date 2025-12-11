@@ -35,8 +35,8 @@ export default function Login() {
       }
 
       // Save user + token
-      login(data.user); // Context + localStorage
-      localStorage.setItem("token", data.token);
+     // Save user + token
+login(data.user, data.token); 
 
       setSuccess(true);
 

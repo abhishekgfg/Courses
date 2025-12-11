@@ -121,15 +121,21 @@ export const updateCourse = async (req, res) => {
     const updatedModules = Array.isArray(modules)
       ? modules.map((mod) => ({
           ...mod,
-          lessons: Array.isArray(mod.lessons)
-            ? mod.lessons.map((lesson) => ({
-                ...lesson,
-                thumbnail:
-                  lesson.thumbnail ||
-                  lessonThumbnails[idx++]?.filename ||
-                  "",
-              }))
-            : [],
+       lessons: Array.isArray(mod.lessons)
+  ? mod.lessons.map((lesson) => {
+      const newThumb = lessonThumbnails[idx]
+        ? lessonThumbnails[idx].filename
+        : null;
+
+      idx++;
+
+      return {
+        ...lesson,
+        thumbnail: newThumb ? newThumb : lesson.thumbnail,
+      };
+    })
+  : [],
+
         }))
       : [];
 

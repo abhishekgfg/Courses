@@ -127,9 +127,9 @@ const BootcampIcon = () => (
         />
         <NavItem
           icon={<ClientsIcon />}
-          label="Clients"
+          label="Patients Profile"
           active={activeTab === "clients"}
-          onClick={() => handleNavigation("clients", "/admin/clients")}
+          onClick={() => handleNavigation("clients", "/admin/profile")}
           collapsed={!sidebarOpen}
         />
 
