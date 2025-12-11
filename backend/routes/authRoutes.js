@@ -4,7 +4,8 @@ import {
   login,
   forgotPassword,
   resetPassword,
-  getProfile
+  getProfile,
+  getAllUsers
 } from "../controllers/authController.js";
 
 import { protect } from "../middleware/authMiddleware.js";
@@ -18,5 +19,6 @@ router.post("/reset-password", resetPassword);
 
 // ✔ NEW: Fetch logged-in user information
 router.get("/me", protect, getProfile);
+router.get("/users", protect, getAllUsers);
 
 export default router;

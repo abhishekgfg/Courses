@@ -9,7 +9,7 @@ import AdminLayout from "./assets/layouts/AdminLayout";
 import AdminCourseEditor from "./pages/CourseForm";
 import AdminCourses from "./pages/AdminCourses";
 import EditCourse from "./pages/EditCourse";
-import AdminProfile from "./pages/AdminProfile";
+import AdminUsers from "./pages/AdminUsers";
 
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
           <Route path="/admin/courses" element={<ProtectedRoute><AdminLayout activeTab="dashboard"><AdminCourseEditor /></AdminLayout></ProtectedRoute>} />
           <Route path="/admin/Course" element={<ProtectedRoute><AdminLayout activeTab="courses"><AdminCourses /></AdminLayout></ProtectedRoute>} />
           <Route path="/admin/edit-course/:id" element={<ProtectedRoute><AdminLayout activeTab="courses"><EditCourse /></AdminLayout></ProtectedRoute>} />
-          <Route path="/admin/profile" element={<AdminLayout activeTab="courses"><AdminProfile /></AdminLayout>} />
+          <Route path="/admin/profile" element={<ProtectedRoute><AdminLayout activeTab="courses"><AdminUsers /></AdminLayout></ProtectedRoute>} />
           
           {/* Catch-all Redirect */}
           <Route path="*" element={<Navigate to="/admin/dashboard" replace />} />

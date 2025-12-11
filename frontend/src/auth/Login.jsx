@@ -36,13 +36,16 @@ export default function Login() {
 
       // Save user + token
      // Save user + token
-login(data.user, data.token); 
+// Save user + token
+localStorage.setItem("token", data.token);  // 🔥🔥 FIX
+login(data.user, data.token);
 
-      setSuccess(true);
+setSuccess(true);
 
-      setTimeout(() => {
-        navigate("/courses");
-      }, 1500);
+setTimeout(() => {
+  navigate("/courses");
+}, 1500);
+
     } catch (err) {
       setError("Something went wrong");
     }

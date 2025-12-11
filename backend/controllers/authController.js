@@ -149,11 +149,22 @@ export const resetPassword = async (req, res) => {
 
 export const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("name email phone");
+    const user = await User.findById(req.user.id).select("-password");
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.json(user);
   } catch {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Get all users (Admin only)
+// Get all users (Admin only)
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find(); // include password
+    res.json(users);
+  } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 };
