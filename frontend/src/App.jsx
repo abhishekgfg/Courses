@@ -17,6 +17,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 
 import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
+import ResetPassword from "./auth/ResetPassword";
 
 const App = () => (
   <AuthProvider>
@@ -39,6 +40,11 @@ const App = () => (
         <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
         <Route path="/my-journey" element={<ProtectedRoute><MyJourney /></ProtectedRoute>} />
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        {/* <Route path="" element={<ResetPassword />} /> */}
+       <Route path="/reset-password" element={<ResetPassword />} />
+
+
+
       </Routes>
 
       <Footer />

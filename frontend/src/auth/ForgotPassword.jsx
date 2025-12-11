@@ -18,16 +18,14 @@ export default function ForgotPassword() {
     });
 
     const data = await res.json();
-
     if (!res.ok) return setError(data.message);
 
-    setMsg("Reset link sent to your email!");
+    setMsg(data.message);
   };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-xl">
-
         <h2 className="text-2xl font-bold mb-4">Forgot Password?</h2>
 
         {error && (
@@ -50,6 +48,7 @@ export default function ForgotPassword() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
