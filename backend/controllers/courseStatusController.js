@@ -15,37 +15,47 @@ export const getCourseStatuses = async (req, res) => {
 };
 
 // Update status
-
 export const updateCourseStatus = async (req, res) => {
   try {
     const { userId, status } = req.body;
 
-    // Check if the status is "Purchased"
+    let updatedCourse = null;
+
+    // ---------- PURCHASED ----------
     if (status === "Purchased") {
-      // Update the modules to set isLocked to false if the course is purchased
-      const updatedCourse = await Course.updateMany(
-        { "modules.userId": userId }, // Match the course where the user is enrolled
-        { $set: { "modules.$[].isLocked": false } }, // Update isLocked to false for all modules
-        { new: true, upsert: true }
+      // Unlock all modules
+      updatedCourse = await Course.updateMany(
+        {},
+        { $set: { "modules.$[].isLocked": false } }
       );
-
-      if (!updatedCourse) {
-        return res.status(404).json({ message: "Course not found" });
-      }
-
-      return res.json(updatedCourse); // Return updated course
     }
 
-    // If status is not "Purchased", simply update the CourseStatus
+    // ---------- PENDING ----------
+    if (status === "Pending") {
+      // Lock all modules
+      updatedCourse = await Course.updateMany(
+        {},
+        { $set: { "modules.$[].isLocked": true } }
+      );
+    }
+
+    // ---------- UPDATE USER COURSE STATUS ----------
     const updatedStatus = await CourseStatus.findOneAndUpdate(
       { userId },
       { status },
       { new: true, upsert: true }
     );
 
-    res.json(updatedStatus);
+    return res.json({
+      message: `Status updated to ${status}`,
+      courseUpdate: updatedCourse,
+      userStatus: updatedStatus,
+    });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
