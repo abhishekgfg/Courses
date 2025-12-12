@@ -19,6 +19,8 @@ import Navigation from "./components/layout/Navigation";
 import Footer from "./components/layout/Footer";
 import ResetPassword from "./auth/ResetPassword";
 import ScrollToTop from "./components/ScrollToTop";
+import About from "./pages/About";
+import LessonSectionUI from "./pages/LessonSectionUI";
 
 
 const App = () => (
@@ -45,7 +47,8 @@ const App = () => (
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         {/* <Route path="" element={<ResetPassword />} /> */}
        <Route path="/reset-password" element={<ResetPassword />} />
-
+ <Route path="/about-doctor" element={<ProtectedRoute><About /></ProtectedRoute>} />
+ <Route path="/courses/:courseId/lesson/:lessonId" element={<LessonSectionUI />} />
 
 
       </Routes>

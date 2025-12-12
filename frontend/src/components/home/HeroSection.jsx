@@ -1,4 +1,4 @@
-import heroImage from "../../assets/hero-doctor-parents.jpg";
+import heroImage from "../../assets/Home.png";
 import { Link } from "react-router-dom";
 import { FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import HowItWorksSection from "./HowItWorksSection";
