@@ -16,6 +16,7 @@ const lessonSchema = new mongoose.Schema({
 const moduleSchema = new mongoose.Schema({
   title: { type: String, required: true },
   lessons: [lessonSchema],
+  isLocked: { type: Boolean, default: true },
 });
 
 const courseSchema = new mongoose.Schema(

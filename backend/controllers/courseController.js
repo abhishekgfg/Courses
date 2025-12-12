@@ -1,4 +1,5 @@
 import Course from "../models/Course.js";
+import CourseStatus from "../models/CourseStatusModel.js";
 
 export const createCourse = async (req, res) => {
   try {
@@ -45,9 +46,32 @@ export const createCourse = async (req, res) => {
   }
 };
 
+// export const getCourses = async (req, res) => {
+//   try {
+//     const courses = await Course.find()
+//     // pupulate("courseSchema.modules")
+//     .lean();
+//     console.log("Fetched Courses:", courses);
+//     res.json(courses);
+//   } catch (err) {
+//     res.status(500).json({ message: "Server Error", error: err.message });
+//   }
+// };
+
 export const getCourses = async (req, res) => {
   try {
-    const courses = await Course.find();
+    let courses = await Course.find().lean();
+
+    // Filter locked modules
+    courses = courses.map(course => {
+      const filteredModules = course.modules.filter(mod => !mod.isLocked);
+
+      return {
+        ...course,
+        modules: filteredModules
+      };
+    });
+
     res.json(courses);
   } catch (err) {
     res.status(500).json({ message: "Server Error", error: err.message });
@@ -74,6 +98,40 @@ export const getCourseById = async (req, res) => {
     res.status(500).json({ message: "Server Error", error: err.message });
   }
 };
+
+
+// export const getCourseById = async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     // const { userId } = req.query; // frontend will send userId
+//      const userId = "693970f820a140853f8af66f";
+//     const course = await Course.findById(id).lean();
+//     if (!course) return res.status(404).json({ message: "Course not found" });
+
+//     // Check status of this course for this user
+//     const status = await CourseStatus.findOne({ userId, id });
+
+//     const isPurchased = status?.status === "Purchased";
+
+//     // Modify modules based on purchase
+//     const updatedModules = course.modules.map(mod => ({
+//       ...mod,
+//       isLocked: isPurchased ? false : mod.isLocked
+//     }));
+
+//     course.modules = updatedModules;
+
+//     res.json({
+//       success: true,
+//       purchased: isPurchased,
+//       course
+//     });
+
+//   } catch (err) {
+//     res.status(500).json({ message: "Server Error", error: err.message });
+//   }
+// };
+
 
 export const updateCourse = async (req, res) => {
   try {
