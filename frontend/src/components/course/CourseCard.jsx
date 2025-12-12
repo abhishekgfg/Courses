@@ -146,7 +146,7 @@ const CourseCard = ({
             <span
                 className={`px-3 py-1 text-xs font-semibold rounded-full text-white ${isFree ? "bg-green-500" : "bg-purple-600"}`}
             >
-                {isFree ? "FREE" : "PREMIUM"}
+                {isFree ? "FREE" : "Locked"}
             </span>
 
             {category && (

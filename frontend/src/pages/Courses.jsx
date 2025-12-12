@@ -143,7 +143,7 @@ const Courses = () => {
     const [levelFilter, setLevelFilter] = useState("All");
 
     // STATIC filter options except Category
-    const types = ["All", "Free", "Paid"];
+    const types = ["All", "Free", "Paid", "Locked" ];
     const levels = ["All", "Intro", "Deep-dive", "Protocols"];
 
     useEffect(() => {

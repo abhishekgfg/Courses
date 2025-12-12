@@ -24,7 +24,7 @@ const courseSchema = new mongoose.Schema(
     moduleName: { type: String, required: true },
     disease: { type: String },
     type: { type: String, enum: ["Intro", "Deep-dive", "Protocols"] },
-    access: { type: String, enum: ["Free", "Paid"] },
+    access: { type: String, enum: ["Free", "Paid","Locked"] },
     courseTitle: { type: String, required: true },
     courseDescription: { type: String },
     totalModules: { type: Number },

@@ -308,6 +308,7 @@ const CourseDetail = () => {
     const fetchCourse = async () => {
       try {
         const res = await axiosInstance.get("/courses");
+        console.log(res)
         const found = res.data.find((c) => c._id === slug || c.slug === slug);
         setCourse(found || null);
       } catch (err) {
@@ -322,24 +323,24 @@ const CourseDetail = () => {
 
 
 
-useEffect(() => {
-  if (!course?._id) return;
+  useEffect(() => {
+    if (!course?._id) return;
 
-  const fetchDetails = async () => {
-    try {
-      const res = await axiosInstance.get(
-        `/courses/details/by-course/${course._id}`
-      );
+    const fetchDetails = async () => {
+      try {
+        const res = await axiosInstance.get(
+          `/courses/details/by-course/${course._id}`
+        );
 
-      setCourseDetails(res.data);
-    } catch (error) {
-      console.log("DETAIL FETCH ERROR:", error);
-      setCourseDetails(null);
-    }
-  };
+        setCourseDetails(res.data);
+      } catch (error) {
+        console.log("DETAIL FETCH ERROR:", error);
+        setCourseDetails(null);
+      }
+    };
 
-  fetchDetails();
-}, [course]);
+    fetchDetails();
+  }, [course]);
 
 
   if (loading) return <div className="p-10 text-center">Loading...</div>;
@@ -374,9 +375,8 @@ useEffect(() => {
             <div className="space-y-6">
               <div className="flex gap-2 flex-wrap">
                 <span
-                  className={`px-3 py-1 rounded-full text-white text-xs ${
-                    course.access === "Free" ? "bg-green-600" : "bg-purple-600"
-                  }`}
+                  className={`px-3 py-1 rounded-full text-white text-xs ${course.access === "Free" || "Locked" ? "bg-green-600" : "bg-purple-600"
+                    }`}
                 >
                   {course.access}
                 </span>
@@ -406,7 +406,7 @@ useEffect(() => {
               </div>
 
               <div className="flex gap-4 flex-col sm:flex-row">
-                {course.access === "Free" ? (
+                {course.access === "Free" || "Locked" ? (
                   <Link to={`/courses/${course.slug || course._id}/lesson/l1`}>
                     <button className="w-full px-6 py-3 bg-green-600 text-white rounded-lg">
                       Start Free Course
@@ -450,40 +450,40 @@ useEffect(() => {
         </section>
 
         {/* Who This Is For */}
-{/* Who This Is For */}
-<section className="py-16">
-  <div className="container mx-auto px-4 max-w-4xl">
-    <h2 className="text-3xl font-bold mb-6 text-center">Who This Is For</h2>
+        {/* Who This Is For */}
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold mb-6 text-center">Who This Is For</h2>
 
-    {!courseDetails ? (
-      <p className="text-center text-gray-500">Loading...</p>
-    ) : (
-      <div className="grid md:grid-cols-2 gap-6">
+            {!courseDetails ? (
+              <p className="text-center text-gray-500">Loading...</p>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-6">
 
-        {/* Perfect For */}
-        <div className="p-6 border bg-green-50 rounded-xl">
-          <h3 className="font-semibold text-green-600 text-lg mb-3">✓ Perfect for you if…</h3>
-          <ul className="text-sm space-y-2">
-            {courseDetails.whoThisIsFor?.perfectFor?.map((item, i) => (
-              <li key={i}>• {item}</li>
-            ))}
-          </ul>
-        </div>
+                {/* Perfect For */}
+                <div className="p-6 border bg-green-50 rounded-xl">
+                  <h3 className="font-semibold text-green-600 text-lg mb-3">✓ Perfect for you if…</h3>
+                  <ul className="text-sm space-y-2">
+                    {courseDetails.whoThisIsFor?.perfectFor?.map((item, i) => (
+                      <li key={i}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
 
-        {/* Not For */}
-        <div className="p-6 border bg-gray-100 rounded-xl">
-          <h3 className="font-semibold text-lg mb-3">⨉ Not for you if…</h3>
-          <ul className="text-sm text-gray-600 space-y-2">
-            {courseDetails.whoThisIsFor?.notFor?.map((item, i) => (
-              <li key={i}>• {item}</li>
-            ))}
-          </ul>
-        </div>
+                {/* Not For */}
+                <div className="p-6 border bg-gray-100 rounded-xl">
+                  <h3 className="font-semibold text-lg mb-3">⨉ Not for you if…</h3>
+                  <ul className="text-sm text-gray-600 space-y-2">
+                    {courseDetails.whoThisIsFor?.notFor?.map((item, i) => (
+                      <li key={i}>• {item}</li>
+                    ))}
+                  </ul>
+                </div>
 
-      </div>
-    )}
-  </div>
-</section>
+              </div>
+            )}
+          </div>
+        </section>
 
 
         {/* Curriculum / Modules */}
@@ -525,9 +525,8 @@ useEffect(() => {
                           </div>
 
                           <div
-                            className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                              isOpen ? "max-h-96 p-3" : "max-h-0"
-                            }`}
+                            className={`transition-all duration-300 ease-in-out overflow-hidden ${isOpen ? "max-h-96 p-3" : "max-h-0"
+                              }`}
                           >
                             {lesson.points?.length > 0 ? (
                               <ul className="space-y-2">
@@ -556,50 +555,50 @@ useEffect(() => {
         </section>
 
         {/* Instructor Section */}
-<section className="py-16">
-  <div className="container mx-auto px-4 max-w-4xl">
-    <h2 className="text-3xl font-bold mb-6 text-center">Your Instructor</h2>
+        <section className="py-16">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <h2 className="text-3xl font-bold mb-6 text-center">Your Instructor</h2>
 
-    {!courseDetails?.instructor ? (
-      <p className="text-center text-gray-500">Instructor details not available</p>
-    ) : (
-      <div className="p-8 bg-white border rounded-xl shadow">
-        <div className="flex gap-8 flex-col md:flex-row">
-
-          {/* Photo */}
-          <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
-            {courseDetails.instructor.photoPath ? (
-              <img
-               src={`http://localhost:5000/uploads/${courseDetails?.instructor?.photoPath}`}
-
-                className="w-full h-full object-cover"
-                alt="Instructor"
-              />
+            {!courseDetails?.instructor ? (
+              <p className="text-center text-gray-500">Instructor details not available</p>
             ) : (
-              <img src={DR} className="w-full h-full object-cover" alt="Default" />
+              <div className="p-8 bg-white border rounded-xl shadow">
+                <div className="flex gap-8 flex-col md:flex-row">
+
+                  {/* Photo */}
+                  <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
+                    {courseDetails.instructor.photoPath ? (
+                      <img
+                        src={`http://localhost:5000/uploads/${courseDetails?.instructor?.photoPath}`}
+
+                        className="w-full h-full object-cover"
+                        alt="Instructor"
+                      />
+                    ) : (
+                      <img src={DR} className="w-full h-full object-cover" alt="Default" />
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-bold">
+                      {courseDetails.instructor.name}
+                    </h3>
+
+                    <p className="text-gray-600">
+                      {courseDetails.instructor.role}
+                    </p>
+
+                    <p className="text-gray-700 leading-relaxed">
+                      {courseDetails.instructor.about}
+                    </p>
+                  </div>
+
+                </div>
+              </div>
             )}
           </div>
-
-          {/* Info */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold">
-              {courseDetails.instructor.name}
-            </h3>
-
-            <p className="text-gray-600">
-              {courseDetails.instructor.role}
-            </p>
-
-            <p className="text-gray-700 leading-relaxed">
-              {courseDetails.instructor.about}
-            </p>
-          </div>
-
-        </div>
-      </div>
-    )}
-  </div>
-</section>
+        </section>
 
 
       </main>
