@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import { sendEmail } from "../utils/email.js";
-
+import CourseStatus from "../models/CourseStatusModel.js";
 export const signup = async (req, res) => {
   try {
     const { name, email, phone, password } = req.body;
@@ -18,6 +18,12 @@ export const signup = async (req, res) => {
       email,
       phone,
       password: hashed,
+    });
+  
+    await CourseStatus.create({
+      userId: user._id,
+      // courseId: DEFAULT_COURSE_ID,
+      status: "Pending"
     });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
