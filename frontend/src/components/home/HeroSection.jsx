@@ -13,7 +13,7 @@ const HeroSection = () => {
                 {/* Background gradient */}
                 <div className="absolute inset-0 gradient-primary opacity-5" />
 
-                <div className="w-[90%] mx-auto px-4 py-16 md:py-24">
+                <div className="w-[90%] mx-auto px-4 py-10 md:py-10">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
 
                         {/* LEFT CONTENT */}

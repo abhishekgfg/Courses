@@ -304,12 +304,22 @@
               </div>
 
               {/* ADD LESSON */}
-              <button
+              {/* <button
                 onClick={() => addLesson(modIndex)}
                 className="mt-4 px-3 py-2 bg-green-600 text-white rounded flex items-center gap-2"
               >
                 <FiPlus /> Add Lesson
-              </button>
+              </button> */}
+
+              {/* ADD LESSON BUTTON AT BOTTOM OF MODULE */}
+<button
+  onClick={() => addLesson(modIndex)}
+  className="mt-4 w-full px-4 py-2 bg-green-600 hover:bg-green-700 
+             text-white rounded flex items-center justify-center gap-2"
+>
+  <FiPlus /> Add Lesson to this Module
+</button>
+
 
               {/* LESSONS LIST */}
               {mod.lessons.map((lesson, lessonIndex) => (
@@ -419,7 +429,7 @@
               ))}
             </div>
           ))}
-        </div>
+        </div>  
 
         {/* SAVE BUTTON */}
         <button
